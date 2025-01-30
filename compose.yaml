@@ -1,0 +1,6 @@
+﻿services:
+  graphqlwithnet8:
+    image: graphqlwithnet8
+    build:
+      context: .
+      dockerfile: GraphQLWithNet8/Dockerfile
