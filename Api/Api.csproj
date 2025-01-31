@@ -9,7 +9,15 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2"/>
+        <PackageReference Include="GraphQL.Server.Ui.Voyager" Version="8.2.0" />
+        <PackageReference Include="HotChocolate.AspNetCore" Version="14.3.0" />
+        <PackageReference Include="HotChocolate.Data.Entityframework" Version="14.3.0" />
+        <PackageReference Include="Microsoft.EntityframeworkCore.Design" Version="9.0.1">
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+          <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityframeworkCore.SqlServer" Version="9.0.1" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
     </ItemGroup>
 
     <ItemGroup>
