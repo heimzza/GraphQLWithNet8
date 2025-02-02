@@ -1,10 +1,10 @@
-﻿version: '3'
-services:
+﻿services:
   sqlserver:
-    image: "mcr.microsoft.com/mssql/server:2017-latest"
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
+    platform: "linux/amd64"
     environment:
       ACCEPT_EULA: "Y"
-      SA_PASSWORD: "pa55word"
+      SA_PASSWORD: "pa55word**Ms"
       MSSQL_PID: "Express"
     ports:
       - "1433:1433"
