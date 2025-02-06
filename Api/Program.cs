@@ -1,3 +1,4 @@
+using GraphQL.Server.Ui.Voyager;
 using GraphQLWithNet8.Data;
 using GraphQLWithNet8.GraphQL;
 using Microsoft.EntityFrameworkCore;
@@ -33,9 +34,14 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapGraphQL();
-});
+app.MapGraphQL();
+
+app.UseGraphQLVoyager(
+    path: "/graphql-voyager", 
+    options: new VoyagerOptions()
+    {
+        GraphQLEndPoint = "/graphql",
+    }
+);
 
 app.Run();
