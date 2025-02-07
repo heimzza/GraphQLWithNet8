@@ -1,13 +1,14 @@
 using GraphQLWithNet8.Data;
 using GraphQLWithNet8.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace GraphQLWithNet8.GraphQL;
 
-public class Query 
+public class Query
 {
-    public IQueryable<Platform> GetPlatforms([Service] AppDbContext context)
+    public IQueryable<Platform> GetPlatforms([Service] IDbContextFactory<AppDbContext> dbContextFactory)
     {
-        return context.Platforms;
+        var context = dbContextFactory.CreateDbContext();
+        return context.Platforms.AsNoTracking(); // Improves performance
     }
-
 }
