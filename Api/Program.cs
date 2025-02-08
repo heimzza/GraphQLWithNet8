@@ -12,7 +12,8 @@ builder.Services.AddPooledDbContextFactory<AppDbContext>(options =>
 
 builder.Services
     .AddGraphQLServer()
-    .AddQueryType<Query>();
+    .AddQueryType<Query>()
+    .AddProjections();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

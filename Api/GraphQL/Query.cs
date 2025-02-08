@@ -6,6 +6,7 @@ namespace GraphQLWithNet8.GraphQL;
 
 public class Query
 {
+    [UseProjection]
     public IQueryable<Platform> GetPlatforms([Service] IDbContextFactory<AppDbContext> dbContextFactory)
     {
         var context = dbContextFactory.CreateDbContext();
