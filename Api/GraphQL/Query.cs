@@ -12,4 +12,11 @@ public class Query
         var context = dbContextFactory.CreateDbContext();
         return context.Platforms.AsNoTracking(); // Improves performance
     }
+
+    [UseProjection]
+    public IQueryable<Command> GetCommands([Service] IDbContextFactory<AppDbContext> dbContext)
+    {
+        var context = dbContext.CreateDbContext();
+        return context.Commands.AsNoTracking();
+    }
 }

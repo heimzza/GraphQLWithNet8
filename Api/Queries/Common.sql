@@ -12,6 +12,10 @@ SELECT TOP (1000) [Id]
 DELETE FROM [GraphQLWithNet8DB].[dbo].[Platforms]
 WHERE [Id] >= 3;
 
+INSERT INTO [GraphQLWithNet8DB].[dbo].[Platforms] ([Name], [LicenseKey])  
+VALUES  
+    ('Windows', 'XALKSMF-AKS421F-1NMI933');
+
 INSERT INTO [GraphQLWithNet8DB].[dbo].[Commands] ([HowTo], [CommandLine], [PlatformId])  
 VALUES  
     ('Build a project', 'dotnet build', '1'),  

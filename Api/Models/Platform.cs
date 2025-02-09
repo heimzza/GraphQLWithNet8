@@ -8,6 +8,7 @@ public class Platform
     public int Id { get; set; }
     [Required]
     public string Name { get; set; }
+    [GraphQLDescription("Purchased license key of the respective software.")]
     public string LicenseKey { get; set; }
     public ICollection<Command> Commands { get; set; } = [];
 }
