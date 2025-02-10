@@ -1,6 +1,7 @@
 using GraphQL.Server.Ui.Voyager;
 using GraphQLWithNet8.Data;
 using GraphQLWithNet8.GraphQL;
+using GraphQLWithNet8.GraphQL.Dtos;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,7 @@ builder.Services.AddPooledDbContextFactory<AppDbContext>(options =>
 builder.Services
     .AddGraphQLServer()
     .AddQueryType<Query>()
+    .AddType<PlatformDto>()
     .AddProjections();
 
 builder.Services.AddControllers();
