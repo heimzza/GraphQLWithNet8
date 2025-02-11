@@ -15,11 +15,13 @@ public class PlatformDto : ObjectType<Platform>
 
         descriptor
             .Field(q => q.Commands)
-            .ResolveWith<Reseolvers>(q => q.GetCommands(default!, default!))
+            .ResolveWith<Resolvers>(q => q.GetCommands(default!, default!))
             .Description("This is the list of available commands for this platform.");
+
+        base.Configure(descriptor);
     }
 
-    private class Reseolvers
+    private class Resolvers
     {
         public IQueryable<Command> GetCommands(Platform platform, [Service] AppDbContext context)
         {
