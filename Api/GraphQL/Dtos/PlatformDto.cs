@@ -17,8 +17,6 @@ public class PlatformDto : ObjectType<Platform>
             .Field(q => q.Commands)
             .ResolveWith<Resolvers>(q => q.GetCommands(default!, default!))
             .Description("This is the list of available commands for this platform.");
-
-        base.Configure(descriptor);
     }
 
     private class Resolvers

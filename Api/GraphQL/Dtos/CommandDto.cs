@@ -9,9 +9,9 @@ public class CommandDto : ObjectType<Command>
     {
         descriptor.Description("Represents any executable command.");
 
-        descriptor.Field(q => q.Platform).ResolveWith<Resolvers>(q => q.GetPlatform(default!, default!));
-
-        base.Configure(descriptor);
+        descriptor
+            .Field(q => q.Platform)
+            .ResolveWith<Resolvers>(q => q.GetPlatform(default!, default!));
     }
 
     private class Resolvers

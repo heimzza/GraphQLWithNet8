@@ -15,6 +15,7 @@ builder.Services
     .AddGraphQLServer()
     .AddQueryType<Query>()
     .AddType<PlatformDto>()
+    // .AddType<CommandDto>() // TODO not wroking
     .AddProjections();
 
 builder.Services.AddControllers();
