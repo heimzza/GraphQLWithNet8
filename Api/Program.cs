@@ -11,12 +11,22 @@ builder.Services.AddPooledDbContextFactory<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")
 ));
 
+// Also add regular DbContext registration
+builder.Services.AddScoped<AppDbContext>(sp =>
+{
+    var contextFactory = sp.GetRequiredService<IDbContextFactory<AppDbContext>>();
+    return contextFactory.CreateDbContext();
+});
+
 builder.Services
     .AddGraphQLServer()
     .AddQueryType<Query>()
     .AddType<PlatformDto>()
-    // .AddType<CommandDto>() // TODO not wroking
-    .AddProjections();
+    .AddType<CommandDto>()
+    .AddProjections()
+    .AddFiltering()
+    .AddSorting()
+    .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
