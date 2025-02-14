@@ -1,5 +1,6 @@
 using GraphQLWithNet8.Data;
 using GraphQLWithNet8.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace GraphQLWithNet8.GraphQL.Dtos;
 
@@ -10,34 +11,21 @@ public class CommandDto : ObjectType<Command>
         descriptor.Description("Represents any executable command.");
 
         descriptor
-            .Field(c => c.Id)
-            .Type<NonNullType<IntType>>();
-
-        descriptor
-            .Field(c => c.HowTo)
-            .Type<NonNullType<StringType>>();
-
-        descriptor
-            .Field(c => c.CommandLine)
-            .Type<NonNullType<StringType>>();
-
-        descriptor
-            .Field(c => c.PlatformId)
-            .Type<NonNullType<IntType>>();
-
-        descriptor
             .Field(c => c.Platform)
             .ResolveWith<Resolvers>(r => r.GetPlatform(default!, default!))
-            .Type<NonNullType<ObjectType<Platform>>>();
+            .Type<ObjectType<Platform>>();
     }
 
     private class Resolvers
     {
-        public Platform GetPlatform([Parent] Command command, [Service] AppDbContext context)
+        public Platform? GetPlatform(
+            [Parent] Command command, 
+            [Service] IDbContextFactory<AppDbContext> contextFactory)
         {
+            var context = contextFactory.CreateDbContext();
             return context.Platforms
-                .FirstOrDefault(p => p.Id == command.PlatformId) 
-                ?? throw new GraphQLException($"Platform with ID {command.PlatformId} not found");
+                .AsNoTracking()
+                .FirstOrDefault(p => p.Id == command.PlatformId);
         }
     }
 }

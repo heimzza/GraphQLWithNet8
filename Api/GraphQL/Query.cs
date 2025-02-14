@@ -9,17 +9,19 @@ public class Query
     [UseProjection]
     [UseFiltering]
     [UseSorting]
-    public IQueryable<Platform> GetPlatforms([Service] AppDbContext context)
+    public IQueryable<Platform> GetPlatforms([Service] IDbContextFactory<AppDbContext> contextFactory)
     {
+        // Don't dispose the context as the IQueryable needs it
+        var context = contextFactory.CreateDbContext();
         return context.Platforms.AsNoTracking();
     }
 
     [UseProjection]
     [UseFiltering]
     [UseSorting]
-    public IQueryable<Command> GetCommands([Service] AppDbContext context)
+    public IQueryable<Command> GetCommands([Service] IDbContextFactory<AppDbContext> contextFactory)
     {
-        return context.Commands.AsNoTracking() 
-            ?? throw new GraphQLException("No commands found");
+        var context = contextFactory.CreateDbContext();
+        return context.Commands.AsNoTracking();
     }
 }

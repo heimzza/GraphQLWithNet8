@@ -24,8 +24,11 @@ public class PlatformDto : ObjectType<Platform>
 
     private class Resolvers
     {
-        public IQueryable<Command> GetCommands([Parent] Platform platform, [Service] AppDbContext context)
+        public IQueryable<Command> GetCommands(
+            [Parent] Platform platform, 
+            [Service] IDbContextFactory<AppDbContext> contextFactory)
         {
+            var context = contextFactory.CreateDbContext();
             return context.Commands
                 .Where(p => p.PlatformId == platform.Id)
                 .AsNoTracking();
