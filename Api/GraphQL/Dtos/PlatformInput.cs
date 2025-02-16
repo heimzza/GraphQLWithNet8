@@ -1,3 +1,3 @@
 namespace GraphQLWithNet8.GraphQL.Dtos;
 
-public record AddPlatformInput(string Name);
+public record AddPlatformInput(string Name, string LicenseKey);

@@ -7,13 +7,14 @@ namespace GraphQLWithNet8.GraphQL;
 
 public class Mutation
 {
-    public async Task<AddPlatformPayload> AddPlatformAsync(AddPlatformInput addPlatformInput,
+    public async Task<AddPlatformPayload> AddPlatformAsync(AddPlatformInput input,
      [Service] IDbContextFactory<AppDbContext> contextFactory)
     {
         var context = contextFactory.CreateDbContext();
 
         var platform = new Platform{
-            Name = addPlatformInput.Name,
+            Name = input.Name,
+            LicenseKey = input.LicenseKey
         };
 
         context.Platforms.Add(platform);
