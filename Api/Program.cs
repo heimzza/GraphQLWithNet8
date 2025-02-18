@@ -13,11 +13,13 @@ builder.Services
     .AddGraphQLServer()
     .AddQueryType<Query>()
     .AddMutationType<Mutation>()
+    .AddSubscriptionType<Subscription>()
     .AddType<PlatformDto>()
     .AddType<CommandDto>()
     .AddProjections()
     .AddFiltering()
     .AddSorting()
+    .AddInMemorySubscriptions()
     .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true);
 
 builder.Services.AddControllers();
@@ -33,6 +35,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseWebSockets();
 
 app.UseHttpsRedirection();
 
