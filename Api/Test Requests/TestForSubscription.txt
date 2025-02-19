@@ -1,0 +1,19 @@
+Use http://localhost:5247/graphql/ to make subscription.
+
+Examples;
+
+subscription{
+    onPlatformAdded{
+      id
+      name
+    }
+  }
+
+  subscription{
+    onCommandAdded{
+      id
+      howTo
+      commandLine
+      platformId
+    }
+  }
