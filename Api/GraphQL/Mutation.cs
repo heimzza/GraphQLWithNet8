@@ -30,8 +30,11 @@ public class Mutation
         return new AddPlatformPayload(platform);
     }
 
-    public async Task<AddCommandPayload> AddCommandPayloadAsync(AddCommandInput input,
-        [Service] IDbContextFactory<AppDbContext> contextFactory)
+    public async Task<AddCommandPayload> AddCommandPayloadAsync(
+        AddCommandInput input,
+        [Service] IDbContextFactory<AppDbContext> contextFactory,
+        [Service] ITopicEventSender eventSender,
+        CancellationToken cancellationToken)
     {
         var context = contextFactory.CreateDbContext();
 
@@ -44,7 +47,9 @@ public class Mutation
 
         context.Commands.Add(command);
 
-        await context.SaveChangesAsync();
+        await context.SaveChangesAsync(cancellationToken);
+
+        await eventSender.SendAsync(nameof(Subscription.OnCommandAdded), command, cancellationToken);
 
         return new AddCommandPayload(command);
     }
